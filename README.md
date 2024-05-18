@@ -14,7 +14,7 @@ This paper investigates the facility location and design problem for a “new-co
 
     The ogrinal CFLDP dataset is available at http://old.math.nsc.ru/AP/benchmarks/Design/design_en.html.
 
-    It is re-processed by solving a optimization problem to get K reasonable locations of competitor’ facilities. 
+    It is re-processed by solving a optimization problem to get K reasonable locations of the competitor’ facilities. 
     
     The number of candicate facilities for the entrant is 50 - K.
 
