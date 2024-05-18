@@ -38,15 +38,15 @@ def CFLDP():
    for k in range(K):
        for r in range(R):
            v[:,k,r] = b[k,r]/(l[:,k]+1)
-   return d, u, v, cost_leader, cost_follower
+   return d, u, v, cost_leader, cost_follower, x_axis, y_axis
 
 
 ''' Solve the problem below to get K reasonable locations of competitor’ facilities.
     After optimization, the entrant has 50 - K candicate facilities and the competitor operates 5 facilities.
 '''
-    
+
 def generator_instance(lambda_c,K,o):
-    d, u, v, c, g = CFLDP()
+    d, u, v, c, g, x_axis, y_axis = CFLDP()
     I = d.shape[0]
     c = np.sort(c, axis=1)
     g = np.sort(g, axis=1)
@@ -89,19 +89,28 @@ def generator_instance(lambda_c,K,o):
     v = v[:,y_open,:]
     g = g[y_open,:]
     for k in range(K):
-        g[k] -= g[k,0]
+        g[k] -= g[k,0]      
+    competitor_x_axis = x_axis[y_open]
+    competitor_y_axis = y_axis[y_open]
+    
     mask = np.ones(u.shape[1], dtype=bool)
     mask[y_open] = False
     u = u[:, mask, :]
-    c = c[mask, :]    
-    return(d, u, v, c, g)
-
+    c = c[mask, :] 
+    entrant_x_axis = x_axis[mask]
+    entrant_y_axis = y_axis[mask]  
+    return(d, u, v, c, g, entrant_x_axis, entrant_y_axis, competitor_x_axis, competitor_y_axis)
 
 if __name__ == "__main__":
      lambda_c = 0.9   # Dissimilarity factor of the competitor’ facilities
      K = 5            # Number of facilities to select for the competitor. 
                       # Number of candicate facilities for the entrant is 50 - K
      o = 1            # Attraction of the outside option, possible value 1 and 10
-
-     d, u, v, c, g = generator_instance(lambda_c,K,o)
+     
+     d, u, v, c, g, entrant_x_axis, entrant_y_axis, competitor_x_axis, competitor_y_axis = generator_instance(lambda_c,K,o)
+ 
+     distance_between_entrant_competitor_facilities = np.zeros((50-K,K))
+     for k in range(K):
+         distance_between_entrant_competitor_facilities[:,k] = np.sqrt(np.square(competitor_x_axis[k] - entrant_x_axis) + np.square(competitor_y_axis[k] - entrant_y_axis))    
+     print("Minimum Distance is",distance_between_entrant_competitor_facilities.min())
      
