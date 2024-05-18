@@ -2,9 +2,11 @@
 
 This repository contains the testbed dataset for the manuscript 
 
-**Market-entry facility location and design considering competitor reactions under nested logit model** by Yun Hui Lin, Dongdong He, Qingyun Tian, and Yitong Yu.
+**Market-entry facility location and design considering competitor reactions under nested logit model** 
 
-Use the code **CFLDP_Data_Generator.py** to generate your own instances
+by Yun Hui Lin, Dongdong He, Qingyun Tian, and Yitong Yu.
+
+    Use the code **CFLDP_Data_Generator.py** to generate your own instances
 
 ## Description
 
