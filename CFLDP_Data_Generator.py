@@ -41,7 +41,10 @@ def CFLDP():
    return d, u, v, cost_leader, cost_follower
 
 
-''' Solve the problem below to get the reasonable location of competitor’ facilities'''
+''' Solve the problem below to get K reasonable locations of competitor’ facilities.
+    After optimization, the entrant has 50 - K candicate facilities and the competitor operates 5 facilities.
+'''
+    
 def generator_instance(lambda_c,K,o):
     d, u, v, c, g = CFLDP()
     I = d.shape[0]
